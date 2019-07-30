@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<ul>
+			<li>大儿子</li>
+			<li>二儿子</li>
+			<li>小女儿</li>
+		</ul>
+
+		<script type="text/javascript">
+			var oUl = document.getElementsByTagName("ul")[0]; //o--object
+			var oLi = document.getElementsByTagName("li")[1];		//a--array
+			
+			// 第一个子节点
+			// console.log(oUl.firstElementChild.nodeName);	//IE低版本不支持
+			// console.log(oUl.firstChild.nodeType);
+			// console.log(firstNode(oUl));
+
+			// 最后一个子节点
+			// console.log(oUl.lastChild);
+			// console.log(oUl.lastElementChild);	//不支持IE低版本
+			// console.log(lastNode(oUl));
+			
+			// 前一个兄弟节点(哥哥)
+			// console.log(lastNode(oUl).previousSibling);
+			// console.log(lastNode(oUl).previousElementSibling);	//不支持IE低版本
+			console.log(previousNode(lastNode(oUl)));
+			
+			// 下一个兄弟节点(弟弟)
+			console.log(firstNode(oUl).nextSibling);
+			// console.log(firstNode(oUl).nextElementSibling);		//不支持IE低版本
+			console.log(nextNode(firstNode(oUl)));		
+			
+			// 所有子节点列表
+			console.log(oUl.childNodes);	//子节点包含文本节点,注释节点, 元素节点
+			console.log(oUl.children);		//三个li元素
+			
+			// 获取父节点
+			console.log(oLi.parentNode);
+			
+
+			// 获取第一个子节点
+			function firstNode(obj) {
+				if (!obj.firstChild) {
+					return false;
+				}
+				return obj.firstElementChild || (obj.firstChild.nodeType == 1 ? obj.firstChild : (obj.firstChild).nextSibling);
+			}
+
+			// 获取最后一个子节点
+			function lastNode(obj) {
+				if (!obj.lastChild) {
+					return false;
+				}
+				return obj.lastElementChild || (obj.lastChild.nodeType == 1 ? obj.lastChild : previousNode(obj.lastChild));
+			}
+			
+			// 获取下一个子节点
+			function nextNode(obj) {
+				if (!obj.nextSibling) {
+					return false;
+				}
+				return obj.nextElementSibling || (obj.nextSibling.nodeType == 1 ? obj.nextSibling : nextNode(obj.nextSibling));
+			}
+
+			// 获取前一个子节点
+			function previousNode(obj) {
+				if (!obj.previousSibling) {
+					return false;
+				}
+				return obj.previousElementSibling || (obj.previousSibling.nodeType == 1 ? obj.previousSibling : previousNode(obj.previousSibling));
+			}
+		</script>
+	</body>
+</html>

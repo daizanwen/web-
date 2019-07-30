@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			html,body{margin: 0; padding: 0;}
+			ul{
+				display: flex;
+				flex-direction: column;
+				list-style: none;
+				width: 150px;
+				border: 1px solid #ccc;
+			}
+			li{
+				border-bottom: 1px solid #ccc;
+				padding: 8px;
+			}
+			li:hover{
+				background: #f0f0f0;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			事件委托的原理:
+				利用"事件冒泡", 实现将事件委托给父元素执行
+				
+			性能优化的方式:
+				事件委托(减少DOM操作)
+				
+				
+			事件源:	
+				发出该事件的目标元素
+				标准浏览器用ev.target，IE低版本浏览器用ev.srcElement获取目标节点
+
+		-->
+		<ul>
+			<li>土豆焖排骨</li>
+			<li>腐竹牛腩</li>
+			<li>三杯鸡</li>
+			<li>西红柿炒蛋</li>
+			<li>土豆炒马铃薯</li>
+		</ul>
+		
+		<script type="text/javascript">
+			var oUl = document.getElementsByTagName("ul")[0];
+			
+			oUl.onclick = function(ev){
+				var ev = ev || window.event;
+				var target = ev.target || ev.srcElement;	//事件源的兼容写法
+				if(target.nodeName.toLowerCase() == "li"){	//判断事件源为li时进行操作
+					console.log(target.innerHTML);
+				}else{
+					console.log("目标节点不是li")
+				}
+			}
+		</script>
+	</body>
+</html>

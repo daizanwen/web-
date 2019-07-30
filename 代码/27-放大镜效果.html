@@ -1,0 +1,98 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#smallBox{
+				width: 250px;
+				height: 250px;
+				position: relative;
+			}
+			#mask{
+				width: 80px;
+				height: 80px;
+				background: rgba(0,0,0,.3);
+				position: absolute;
+				left: 0;
+				top: 0;
+				display: none;
+			}
+			#bigBox{	/*宽高注意是按比例设置--80/250*800 bigBox的宽度 = mask的宽度/smallBox的宽度*大图片的宽度*/
+				width: 256px;
+				height: 256px;
+				position: absolute;
+				left: 300px;
+				top: 0;
+				border: 1px solid #ccc;
+				overflow: hidden;
+				display: none;
+			}
+			#bigImg{
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="smallBox">
+			<div>
+				<img src="img/放大镜素材/small.jpg" width="250" >
+			</div>
+			<div id="mask"></div>
+		</div>
+		<div id="bigBox">
+			<img id="bigImg" src="img/放大镜素材/big.jpg" >
+		</div>
+		
+		<script type="text/javascript">
+			
+			// 1.获取元素
+			var smallBox = document.getElementById("smallBox");
+			var mask = document.getElementById("mask");
+			var bigBox = document.getElementById("bigBox");
+			var bigImg = document.getElementById("bigImg");
+			
+			// 2.鼠标移入事件
+			smallBox.onmouseenter = function(){
+				bigBox.style.display = "block";
+				
+				// 3.鼠标移动事件
+				smallBox.onmousemove = function(ev){
+					
+					var ev = ev || window.event;
+					
+					// 4.获取鼠标位置
+					var oMouseX = ev.pageX - mask.offsetWidth/2;
+					var oMouseY = ev.pageY - mask.offsetHeight/2;
+					
+					// 5.将mask的位置跟随鼠标移动(判断是为了防止mask超出smallBox)
+					if(oMouseX<=0){
+						oMouseX = 0;
+					}else if(oMouseX + mask.offsetWidth > smallBox.offsetWidth){
+						oMouseX = smallBox.offsetWidth - mask.offsetWidth;
+					}
+					if(oMouseY<=0){
+						oMouseY = 0;
+					}else if(oMouseY + mask.offsetHeight > smallBox.offsetHeight){
+						oMouseY = smallBox.offsetHeight - mask.offsetHeight;
+					}
+					mask.style.cssText = "display: block; left: "+oMouseX+"px; top: "+oMouseY+"px;";
+					
+					// 算缩放比
+					var oScaleX = (mask.offsetLeft/smallBox.offsetWidth)*bigImg.offsetWidth;
+					var oScaleY = (mask.offsetTop/smallBox.offsetHeight)*bigImg.offsetHeight;
+					
+					// 设置大图片的位置(mask往右移时,大图片往左走,所以设置成负值)
+					bigImg.style.cssText = "left: "+(-oScaleX)+"px;top: "+(-oScaleY)+"px;";
+				}
+			}
+			
+			// 鼠标移除事件
+			smallBox.onmouseleave = function(){
+				bigBox.style.display = "none";
+				mask.style.display = "none";
+			}
+			
+		</script>
+	</body>
+</html>

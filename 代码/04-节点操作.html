@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			.bb{
+				width: 100px;
+				height: 100px;
+				background: lightblue;
+			}
+			button{
+				display: none;
+			}
+			
+			.bb:hover button{
+				display: inline-block;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			节点操作:
+				查找节点:
+					document.getElementById()
+					document.getElementsByName()
+					document.getElementsByTagName()
+					document.getElementsByClassName()
+					
+				创建节点:
+					createElement:	创建元素节点
+					createTextNode:	创建文本节点
+					createAttribute: 创建属性节点
+					
+				添加节点:	
+					父节点.appendChild(新节点):	将节点添加到子节点列表的最后
+					
+				插入节点:
+					父节点.insertBefore(新节点, 参考节点):	将节点插入到某已知节点的前面
+					
+				替换节点:
+					父节点.replaceChild(新节点, 旧节点):	将新节点替换到旧节点
+					
+				克隆节点:
+					要克隆的节点.cloneNode(true|false):		将已知节点克隆(参数为布尔值: true: 克隆节点且克隆里面的内容; false: 仅克隆节点)
+					
+				删除节点:
+					父节点.removeChild(要删除的节点):	将节点删除
+					
+		-->
+		<div class="bb">点我克隆
+			<button type="button">删除</button>
+		</div>
+		
+		<script type="text/javascript">
+			
+			var oBox = document.getElementsByTagName("div")[0];
+			var oBtn = oBox.getElementsByTagName("button")[0];
+			
+			// 创建元素节点
+			var oP = document.createElement("p");
+			var oDiv = document.createElement("div");
+			var oPNew = document.createElement("p");
+			// oP.innerHTML = "我是创建的p标签"
+			console.log(oP)
+			
+			// 创建文本节点
+			var textNode = document.createTextNode("我是创建的文本");
+			console.log(textNode)
+			
+			// 创建属性节点
+			var attr = document.createAttribute("class");
+			attr.value = "box";
+			console.log(attr)
+			
+			// 将节点添加到oP
+			oP.appendChild(textNode)
+			
+			// 设置属性节点
+			oP.setAttributeNode(attr)
+			console.log(oP);
+			
+			// 将oP添加到body里面
+			document.body.appendChild(oP)
+			
+			oDiv.innerHTML = "新的div";
+			console.log(oDiv);
+			
+			document.body.insertBefore(oDiv, oP);	//两个参数(新节点, 参考节点[要插入到谁的前面])
+			
+			
+			oPNew.innerHTML="新的p标签";
+			document.body.replaceChild(oPNew, oP);	//两个参数(新节点, 旧节点[被替换掉的节点])
+			
+			// 点击克隆节点
+			oBox.onclick = function(){
+				var newNode = oBox.cloneNode(true);	//克隆节点并克隆内容
+				// var newNode = oBox.cloneNode(false);	//克隆节点
+				document.body.appendChild(newNode);
+			}
+			
+			// 点击删除节点
+			oBtn.onclick = function(ev){
+				document.body.removeChild(this.parentNode);
+				ev.stopPropagation();	//阻止冒泡
+			}
+		</script>
+	</body>
+</html>

@@ -1,0 +1,96 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#content {
+				width: 450px;
+				height: 150px;
+				border: 1px solid #ccc;
+				box-sizing: border-box;
+				overflow: auto;
+			}
+
+			textarea {
+				width: 450px;
+				border: 1px solid #ccc;
+				box-sizing: border-box;
+				resize: none;
+			}
+
+			button {
+				width: 450px;
+				border: none;
+				background: dodgerblue;
+				color: #fff;
+				padding: 8px 0;
+			}
+
+			#box {
+				display: flex;
+				flex-direction: column;
+				align-items: center;
+				margin-top: 100px;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			阻止默认事件
+				preventDefault()	主流浏览器
+				||
+				ev.returnValue = false:		IE低版本写法
+		-->
+		<div id="box">
+			<div id="content"></div>
+			<textarea rows="10" cols="20"></textarea>
+			<button type="button">发表留言</button>
+		</div>
+
+		<script type="text/javascript">
+			// 1.获取元素
+			var oContent = document.getElementById("content");
+			var oBtn = document.getElementsByTagName("button")[0];
+			var oTxt = document.getElementsByTagName("textarea")[0];
+
+			// 2.绑定点击事件
+			oBtn.onclick = function() {
+				sendMsg();
+			}
+
+			// 3.绑定键盘事件
+			document.onkeydown = function(ev) {
+				var ev = ev || window.event;
+				if (ev.keyCode == 13) { //回车键
+					sendMsg();
+					// ev.preventDefault();
+					stopPrevent(ev);
+				}
+			}
+
+			function sendMsg() {
+				// if(oTxt.value.trim()){
+				var newMsg = document.createElement("p");
+				newMsg.innerHTML = oTxt.value;
+				oContent.appendChild(newMsg);
+				oTxt.value = ""; //清空输入框
+				oTxt.focus();
+				oContent.scrollTop = oContent.scrollHeight; //滚动到最新一条
+				// }else{
+				// alert("请输入留言内容");
+				// }
+			}
+
+			// 阻止默认事件
+			function stopPrevent(ev) {
+				if (ev.preventDefault) {
+					ev.preventDefault();
+				} else {
+					ev.returnValue = false;
+				}
+				return false;
+			}
+		</script>
+	</body>
+</html>

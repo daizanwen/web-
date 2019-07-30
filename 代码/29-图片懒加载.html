@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			img{
+				display: block;
+				height: 200px;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			性能优化的方式:
+				事件委托
+				文档碎片
+				图片懒加载(减少请求,减轻服务器压力,优化用户体验)
+		-->
+		<img data-src="img/风景图/0.jpg" >
+		<img data-src="img/风景图/1.jpg" >
+		<img data-src="img/风景图/2.jpg" >
+		<img data-src="img/风景图/3.jpg" >
+		<img data-src="img/风景图/4.jpg" >
+		<img data-src="img/风景图/5.jpg" >
+		<img data-src="img/风景图/6.jpg" >
+		<img data-src="img/风景图/7.jpg" >
+		<img data-src="img/风景图/8.jpg" >
+		<img data-src="img/风景图/9.jpg" >
+		<img data-src="img/风景图/10.jpg" >
+		<img data-src="img/风景图/11.jpg" >
+		<img data-src="img/风景图/12.jpg" >
+		<img data-src="img/风景图/13.jpg" >
+		<img data-src="img/风景图/14.jpg" >
+		<img data-src="img/风景图/15.jpg" >
+		
+		<script type="text/javascript">
+			window.onload = function(){
+				// 1.获取窗口的高度
+				var oHeight = window.innerHeight;
+				
+				// 2.获取元素
+				var aImg = document.getElementsByTagName("img");
+				
+				// 3.调用循环获取图片的顶端距离并获取对应图片路径
+				loadImg();
+				
+				// 4.绑定窗口滚动事件
+				window.onscroll = loadImg;
+				
+				function loadImg(){
+					for(var i=0; i<aImg.length; i++){
+						if(aImg[i].getBoundingClientRect().top <= oHeight){	//判断是否进入可视区域
+							//获取图片对应的src路径
+							var src = aImg[i].dataset.src;
+							aImg[i].src = src;
+						}
+					}
+				}
+			}
+		</script>
+	</body>
+</html>

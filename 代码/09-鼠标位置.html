@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			body{
+				height: 2000px;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			鼠标的位置:
+				clientX:	可视区域的X轴坐标
+				clientY:	可视区域的Y轴坐标
+				
+				pageX:	页面的X轴坐标(不支持IE低版本)--clientX+滚动宽度||clientY+滚动高度
+				pageY:	页面的Y轴坐标(不支持IE低版本)
+				
+				screenX:	屏幕的X轴坐标
+				screenY:	屏幕的Y轴坐标
+		-->
+		<script type="text/javascript">
+			document.documentElement.onclick = function(ev){
+				var ev = ev || window.event;
+				console.log(ev.clientX);
+				console.log(ev.clientY);
+				
+				console.log(ev.pageX);
+				console.log(ev.pageY);
+				
+				console.log(ev.clientY+getScrollTop())	//pageY的兼容写法(已有的可视区域坐标+滚动高度)
+				
+				console.log(ev.screenX);
+				console.log(ev.screenY);
+			}
+			
+			
+			// 获取滚动高度
+			function getScrollTop(){
+				return window.pageYOffset || document.documentElement.scrollTop;
+			}
+		</script>
+	</body>
+</html>

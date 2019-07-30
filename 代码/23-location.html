@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			window.location.href: 设置或返回当前页面的URL
+			window.location.search: 设置或返回从问号开始的查询部分。
+			window.location.reload(): 刷新页面
+		-->
+		<div>			
+			<input type="text" name="" id="" value="" />
+			<button type="button">搜索</button>
+			
+			<button type="button">刷新</button>
+		</div>
+		<script type="text/javascript">
+			var oInput = document.getElementsByTagName("input")[0];
+			var oBtn = document.getElementsByTagName("button")[0];
+			var oReload = document.getElementsByTagName("button")[1];
+			
+			console.log(window.location.href);
+			// 绑定点击事件
+			oBtn.onclick = function(){
+				var val = oInput.value;
+				if(window.location.search){	//已存在搜索值
+					window.location.search += "&wd="+val;
+				}else{
+					window.location.search = "wd="+val;
+				}
+			}
+			
+			// 点击刷新页面
+			oReload.onclick = function(){
+				window.location.reload();
+			}
+		</script>
+	</body>
+</html>

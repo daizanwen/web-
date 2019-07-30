@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#snake{
+				position: absolute;
+			}
+			#snake div{
+				width: 100px;
+				height: 100px;
+			}
+			#snake div:first-child{
+				background: seagreen;
+			}
+			#snake div:not(:first-child){
+				background: #63A35C;
+			}
+			#food{
+				width: 150px;
+				height: 150px;
+				background: #ccc;
+				position: absolute;
+				left: 50%;
+				margin-left: -75px;
+				top: 300px;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="snake">
+			<div id="head"></div>
+		</div>
+		<div id="food">食物</div>
+		
+		<script type="text/javascript">
+			var snake = document.getElementById("snake");
+			var food = document.getElementById("food");
+			document.onkeydown = function(ev){
+				var oLeft = snake.offsetLeft;
+				var oTop = snake.offsetTop;
+				var ev = ev || window.event;	//ev兼容
+				switch(ev.keyCode){
+					case 37: 
+						snake.style.left = (oLeft-20)+"px";
+						break;
+					case 38: 
+						snake.style.top = (oTop-20)+"px";
+						break;
+					case 39: 
+						snake.style.left = (oLeft+20)+"px";
+						break;
+					case 40: 
+						snake.style.top = (oTop+20)+"px";
+						break;
+				}
+				// 蛇的各个方向的距离
+				var snakeR = snake.getBoundingClientRect().right;
+				var snakeL = snake.getBoundingClientRect().left;
+				var snakeT = snake.getBoundingClientRect().top;
+				var snakeB = snake.getBoundingClientRect().bottom;
+				
+				// 食物的各个方向的距离
+				var foodR = food.getBoundingClientRect().right;
+				var foodL = food.getBoundingClientRect().left;
+				var foodT = food.getBoundingClientRect().top;
+				var foodB = food.getBoundingClientRect().bottom;
+				
+				// 判断是否碰撞
+				if(snakeR<foodL || snakeT>foodB || snakeL>foodR || snakeB<foodT){
+					food.style.background = "#ccc";
+				}else{	//碰上了
+					var body = document.createElement("div");
+					snake.appendChild(body);
+					food.style.display = "none";
+				}
+			}
+		</script>
+	</body>
+</html>

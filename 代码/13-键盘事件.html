@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				width: 100px;
+				height: 100px;
+				background: lightblue;
+				position: absolute;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="box"></div>
+		
+		<script type="text/javascript">
+			var oBox = document.getElementById("box");
+			document.onkeydown = function(ev){
+				var oLeft = oBox.offsetLeft;
+				var oTop = oBox.offsetTop;
+				var ev = ev || window.event;	//ev兼容
+				// if(ev.keyCode == 37){	//左
+				// 	oBox.style.left = (oLeft-10)+"px";
+				// }else if(ev.keyCode == 38){		//上
+				// 	oBox.style.top = (oTop-10)+"px";
+				// }else if(ev.keyCode == 39){	//右
+				// 	oBox.style.left = (oLeft+10)+"px";	
+				// }else if(ev.keyCode == 40){	//下
+				// 	oBox.style.top = (oTop+10)+"px";	
+				// }
+				switch(ev.keyCode){
+					case 37: 
+						oBox.style.left = (oLeft-10)+"px";
+						break;
+					case 38: 
+						oBox.style.top = (oTop-10)+"px";
+						break;
+					case 39: 
+						oBox.style.left = (oLeft+10)+"px";
+						break;
+					case 40: 
+						oBox.style.top = (oTop+10)+"px";
+						break;
+				}
+			}
+			
+		</script>
+	</body>
+</html>

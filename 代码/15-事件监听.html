@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			#box{
+				width: 100px;
+				height: 100px;
+				background: lightblue;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			事件监听:
+				由于on+event的写法不支持多次绑定, 多次绑定时, 后面的会覆盖前面的
+				 
+				addEventListener()	可以多次绑定--IE低版本不支持
+				||
+				attachEvent
+				
+				对应的移除事件
+				removeEventListener()
+				||
+				detachEvenet
+				
+			
+			addEventListener()	第三个参数为"是否捕获"--true为捕获, false为冒泡
+		-->
+		<div id="box"></div>
+		
+		<script type="text/javascript">
+			// 1.获取元素
+			var oBox = document.getElementById("box");
+			var num = 2;
+			
+			// 2.绑定点击事件(不可以重复绑定)
+			// oBox.onclick = changeBg;
+			// oBox.onclick = changeWidth;
+			
+			// oBox.addEventListener("click", changeBg);			
+			// oBox.addEventListener("click", changeWidth);		
+			// oBox.addEventListener("mouseleave", changeBg);		
+			
+			bindEvent(oBox,"click", changeBg);
+			bindEvent(oBox,"click", changeWidth);
+			bindEvent(oBox,"click", changeBg);
+			
+			
+			bindEvent(document,"click", function(){
+				console.log(666);
+			});
+			
+			
+			
+				
+			function changeBg(){
+				oBox.style.background = "rgb("+getRandom(0,255)+","+getRandom(0,255)+","+getRandom(0,255)+")";
+			}
+			function changeBorder(){
+		
+				oBox.style.border = (num++)+"px solid #ff0";
+			}
+			function changeWidth(){
+				console.log(555);
+				oBox.style.width = (oBox.offsetWidth+100)+'px';
+				
+				if(oBox.offsetWidth > 500){
+					// oBox.onclick = null;		通过事件监听的方式不可以置为null进行移除
+					// oBox.removeEventListener("click", changeBg);
+					removeEvent(oBox,"click", changeBg);
+				}
+			}
+			
+			// 事件监听的兼容函数
+			function bindEvent(obj,events, fn){
+				if (obj.addEventListener) {
+					obj.addEventListener(events, fn, false);
+				}else{
+					obj.attachEvent('on'+events, fn);
+				}
+			};
+			
+			// 事件移除的兼容函数
+			function removeEvent(obj,events, fn){
+				if (obj.removeEventListener) {
+					obj.removeEventListener(events, fn);
+				}else{
+					obj.detachEvent('on'+events, fn);
+				}
+			};
+
+			
+			// 随机数函数
+			function getRandom(min,max){
+				return Math.floor(Math.random()*(max-min)+min);
+			}
+		</script>
+	</body>
+</html>

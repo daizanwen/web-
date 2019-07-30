@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<meta name="viewport" content="width=device-width,initial-scale=1,minimum-scale=1,maximum-scale=1,user-scalable=no" />
+		<style type="text/css">
+			#box{
+				width: 100px;
+				height: 150px;
+				background: lightblue;
+				padding: 20px;
+				border: 5px solid #FF0;
+				margin: 20px;
+				margin-top: 30px;
+				overflow: auto;
+			}
+			#box::-webkit-scrollbar{
+				display: none;
+			}
+			#bigBox{
+				border: 1px solid red;
+				background: lightcoral;
+				/* position: relative; */
+			}
+			#greatBox{
+				border: 1px solid #000;
+				position: relative;
+			}
+			p{
+				margin: 0;
+				width: 500px;
+				height: 1600px;
+				background: lightgray;
+			}
+			body{
+				height: 1200px;
+			}
+			#toTop{
+				width: 80px;
+				height: 80px;
+				text-align: center;
+				line-height: 80px;
+				border-radius: 50%;
+				background: #D3D3D3;
+				position: fixed;
+				right: 50px;
+				bottom: 50px;
+				display: none;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			offsetParent: 具有定位的父元素,包括: 相对, 绝对, 固定(层层往上查找, 最高到body)
+			
+			offsetLeft: 相对于offsetParent最左侧的距离(父元素有定位时, 则相对于父元素, 没有则相对于body)
+			offsetTop: 相对于offsetParent最上边的距离(父元素有定位时, 则相对于父元素, 没有则相对于body)
+			
+			clientLeft: 当前元素与父元素之间左侧的距离(边框)
+			clientTop: 当前元素与父元素之间上边的距离(边框)
+			
+			scrollLeft:	X轴的滚动距离
+			scrollTop:	Y轴的滚动距离
+			
+			pageXOffset: 窗口的滚动距离(X轴)[不支持IE低版本]--只能获取, 不能设置
+			pageYOffset: 窗口的滚动距离(Y轴)[不支持IE低版本]--只能获取, 不能设置
+			||
+			兼容IE低版本, 且可设置可获取
+			document.documentElement.scrollLeft; 
+			document.documentElement.scrollTop; 
+			
+			获取可视距离:
+			getBoundingClientRect()	返回一个对象: 
+				{
+					bottom: 240,
+					height: 200,
+					left: 30,
+					right: 180,
+					top: 40,
+					width: 150,
+					x: 30,
+					y: 40
+				}
+		-->
+		<div id="greatBox">
+			<div id="bigBox">
+				<div id="box">
+					<p>111</p>
+				</div>
+			</div>
+			<div id="toTop">
+				回到顶部
+			</div>
+		</div>
+		
+		<script type="text/javascript">
+			var oBox = document.getElementById("box");
+			var toTop = document.getElementById("toTop");
+			
+			console.log(oBox.offsetParent);
+			console.log(oBox.offsetLeft);
+			console.log(oBox.offsetTop);
+			
+			console.log(oBox.clientLeft);
+			console.log(oBox.clientTop);
+			
+			
+			oBox.onscroll = function(){
+				console.log(oBox.scrollTop);
+				console.log(oBox.scrollLeft);
+			}
+			
+			window.onscroll = function(){
+				// console.log(window.pageYOffset);
+				// console.log(document.documentElement.scrollTop);
+				console.log(getScrollTop())
+				if(getScrollTop()>200){
+					toTop.style.display = "block";
+					
+					//点击回到顶部
+					toTop.onclick = function(){
+						setScrollTop(0)
+						// document.documentElement.scrollTop = 0;
+					}
+				}else{
+					toTop.style.display = "none";
+				}
+			}
+			
+			// 获取可视距离
+			console.log(oBox.getBoundingClientRect());
+			console.log(oBox.getBoundingClientRect().x);
+			console.log(oBox.getBoundingClientRect().left);
+			console.log(oBox.getBoundingClientRect().right);
+			
+			
+			// 设置滚动高度
+			function setScrollTop(num){
+				return document.documentElement.scrollTop = document.body.scrollTop = num;
+			}
+			
+			// 获取滚动高度
+			function getScrollTop(){
+				return window.pageYOffset || document.documentElement.scrollTop;
+			}
+		</script>
+	</body>
+</html>

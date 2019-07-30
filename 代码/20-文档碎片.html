@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			html,body,ul{margin: 0; padding: 0;}
+			ul,li{list-style: none;}
+			ul{
+				display: flex;
+				flex-direction: column-reverse;
+			}
+			ul li{
+				background: yellow;
+				margin: 10px;
+			}
+			ul li:last-child{
+				background: red;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			重排: DOM元素已经渲染到dom树中之后, 再进行页面的重新排版时, 就叫重排.	HTML布局
+			重绘: 已经渲染了样式, 再重新渲染.	 CSS样式
+		-->
+		<ul></ul>
+		
+		<script type="text/javascript">
+			
+			var oUl = document.getElementsByTagName("ul")[0];
+			
+			var oFrag = document.createDocumentFragment();	//创建文档碎片(不存在于dom树)
+			
+			// for(var i=0; i<10000; i++){
+			// 	var newLi = document.createElement("li");
+			// 	newLi.innerHTML = i+1;
+			// 	oFrag.appendChild(newLi);	//依次添加到文档碎片
+			// }
+			// oUl.appendChild(oFrag);	//将文档碎片一次性添加到ul,只操作一次dom
+			
+			for(var i=0; i<10000; i++){
+				var newLi = document.createElement("li");
+				newLi.innerHTML = i+1;
+				oUl.appendChild(newLi);	
+			}
+		</script>
+	</body>
+</html>

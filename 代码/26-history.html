@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			历史记录的前进和后退:
+				window.history.forword()	--前进
+				window.history.back()		--后退
+				window.history.go()			--前进或后退(参数为正数时前进, 参数为负数为后退)
+		-->
+		<img src="img/数码时钟/0.png" >
+		<button>前进</button>
+		<button>后退</button>
+		<button>后退多个历史记录</button>
+		
+		<script type="text/javascript">
+			
+			// 1.获取元素
+			var oImg = document.getElementsByTagName("img")[0];
+			var oForward = document.getElementsByTagName("button")[0];
+			var oBack = document.getElementsByTagName("button")[1];
+			var oForwards = document.getElementsByTagName("button")[2];
+			
+			var num = window.location.hash? window.location.hash.substring(1):0;	//获取hash
+			oImg.src = "img/数码时钟/"+num+".png";
+			
+			// 2.绑定点击事件
+			oImg.onclick = function(){
+				if(num==9){
+					num = 0;
+				}else{
+					num++;
+				}
+				window.location.hash = num;	//设置hash
+				oImg.src = "img/数码时钟/"+num+".png";
+			}
+			
+			// 绑定hash值改变事件
+			window.onhashchange = function(){
+				num = window.location.hash? window.location.hash.substring(1):0;	//获取hash
+				oImg.src = "img/数码时钟/"+num+".png";
+			}
+			
+			// 绑定后退按钮点击事件
+			oBack.onclick = function(){
+				window.history.back();
+			}
+			
+			// 绑定前进按钮点击事件
+			oForward.onclick = function(){
+				window.history.forward();
+			}
+			
+			// 绑定前进多个
+			oForwards.onclick = function(){
+				console.log(window.history);
+				window.history.go(-2);
+			}
+		</script>
+	</body>
+</html>

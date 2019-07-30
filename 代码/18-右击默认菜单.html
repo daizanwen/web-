@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			html,body,ul{margin: 0; padding: 0;}
+			ul{
+				display: flex;
+				padding: 0;
+				flex-direction: column;
+				list-style: none;
+				width: 150px;
+				border: 1px solid #ccc;
+				display: none;
+				position: absolute;
+			}
+			li{
+				border-bottom: 1px solid #ccc;
+				padding: 8px;
+			}
+			li:hover{
+				background: #f0f0f0;
+			}
+		</style>
+	</head>
+	<body>
+		<ul>
+			<li>土豆焖排骨</li>
+			<li>腐竹牛腩</li>
+			<li>三杯鸡</li>
+			<li>西红柿炒蛋</li>
+			<li>土豆炒马铃薯</li>
+		</ul>
+		
+		<script type="text/javascript">
+			
+			var oMenu = document.getElementsByTagName("ul")[0];
+			
+			// 右键菜单
+			window.oncontextmenu = function(ev){
+				var ev = ev || window.event;
+				stopPrevent(ev);	//阻止显示默认的右击菜单
+				var oMouseX = ev.pageX;
+				var oMouseY = ev.pageY;
+				oMenu.style.cssText = "display: flex; left: "+oMouseX+"px; top: "+oMouseY+"px";	//出现自定义菜单
+				var aLi = document.getElementsByTagName("li");
+				for(var i=0; i<aLi.length; i++){
+					aLi[i].onclick = function(){
+						console.log(this.innerHTML);
+						oMenu.style.display = "none";
+					}
+				}
+			}
+			
+			// 阻止默认事件
+			function stopPrevent(ev) {
+				if (ev.preventDefault) {
+					ev.preventDefault();
+				} else {
+					ev.returnValue = false;
+				}
+				return false;
+			}
+		</script>
+	</body>
+</html>

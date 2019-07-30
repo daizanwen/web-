@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+		<style type="text/css">
+			div {
+				width: 100px;
+				height: 100px;
+				background: lightcoral;
+			}
+		</style>
+	</head>
+	<body>
+		<!--
+			事件流:
+				事件冒泡:
+					从最特定的元素到最不特定的元素(小范围到大范围)
+					
+				事件捕获:
+					从最不特定的元素到最特定的元素(大范围到小范围)
+					
+			取消冒泡事件:
+				stopPropagation()	//主流浏览器和IE9以上
+				ev.cancelBubble = true;		//IE的低版本写法
+		-->
+		<div></div>
+
+		<script type="text/javascript">
+			var oBox = document.getElementsByTagName("div")[0];
+
+			oBox.onclick = function(ev) {
+				var ev = ev || window.event;
+				console.log(444);
+				this.style.background = "lightblue";
+				// ev.stopPropagation();
+				stopBubble(ev);
+			}
+
+			document.body.onclick = function(ev) {
+				var ev = ev || window.event;
+				console.log(555);
+				this.style.background = "lightgray";
+				// ev.stopPropagation();
+				stopBubble(ev);
+			}
+
+			document.documentElement.onclick = function(ev) {
+				var ev = ev || window.event;
+				console.log(666);
+				// ev.stopPropagation();
+				stopBubble(ev);
+			}
+
+			// 取消冒泡的兼容写法
+			function stopBubble(ev) {
+				var ev = ev || window.event;
+				if (ev.stopPropagation) { //标准
+					 ev.stopPropagation(); 
+				}else{	//ie
+					ev.cancelBubble = true;
+				}
+			};
+		</script>
+	</body>
+</html>

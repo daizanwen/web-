@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<ul>
+			<li>
+				1.
+				<button>上移</button>
+				<button>下移</button>
+			</li>
+			<li>
+				2.
+				<button>上移</button>
+				<button>下移</button>
+			</li>
+			<li>
+				3.
+				<button>上移</button>
+				<button>下移</button>
+			</li>
+			<li>
+				4.
+				<button>上移</button>
+				<button>下移</button>
+			</li>
+			<li>
+				5.
+				<button>上移</button>
+				<button>下移</button>
+			</li>
+		</ul>
+		<script type="text/javascript">
+			// 1.获取元素
+			var oOl = document.getElementsByTagName("ul")[0];
+			var aBtn = document.getElementsByTagName("button");
+			
+			// 2. 循环绑定li点击事件
+			for(var i=0; i<aBtn.length; i++){
+				aBtn[i].index = i;
+				aBtn[i].onclick = function(){
+					if(this.index%2==0){	//上移
+						if(!previousNode(this.parentNode)){
+							alert("到头了");
+						}else{	//将当前父节点插入到上一个父节点的前面
+							oOl.insertBefore(this.parentNode,previousNode(this.parentNode));
+						}
+					}else{	//下移
+						if(!nextNode(this.parentNode)){
+							alert("到尾了");
+						}else{	//将当前父节点的后一个节点插入到当前父节点的前面
+							oOl.insertBefore(nextNode(this.parentNode), this.parentNode);
+						}
+					}
+				}
+			}
+			
+			
+			// 获取下一个子节点
+			function nextNode(obj) {
+				if (!obj.nextSibling) {
+					return false;
+				}
+				return obj.nextElementSibling || (obj.nextSibling.nodeType == 1 ? obj.nextSibling : nextNode(obj.nextSibling));
+			}
+			
+			// 获取前一个子节点
+			function previousNode(obj) {
+				if (!obj.previousSibling) {
+					return false;
+				}
+				return obj.previousElementSibling || (obj.previousSibling.nodeType == 1 ? obj.previousSibling : previousNode(obj.previousSibling));
+			}
+		</script>
+	</body>
+</html>

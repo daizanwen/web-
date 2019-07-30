@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body>
+		<!--
+			BOM: browser object model 浏览器对象模型 
+			窗口的打开和关闭
+			window.open(url, '_self'|'_blank', 特性, 是否替换url))	--是否替换url参数仅在IE支持
+			window.close()
+		-->
+		<input type="text" name="" id="" value="" placeholder="请输入搜索内容" />
+		<button type="button">打开新窗口</button>
+		<button type="button">关闭窗口</button>
+		
+		<script type="text/javascript">
+			
+			// 1.获取元素
+			var myOpen = document.getElementsByTagName("button")[0];
+			var myclose = document.getElementsByTagName("button")[1];
+			var oVal = document.getElementsByTagName("input")[0];
+			var newWindow;
+			
+			// 2.绑定点击事件
+			myOpen.onclick = function(){
+				var val = oVal.value;
+				newWindow = window.open("https://www.baidu.com/s?wd="+val, "_self", "width=500px; height=250px", true);
+			}
+			
+			myclose.onclick = function(){
+				newWindow.close();
+			}
+			
+		</script>
+	</body>
+</html>

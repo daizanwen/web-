@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title></title>
+	</head>
+	<body><!--
+			DOM节点有三个重要属性:
+				nodeName:	节点名称
+				nodeValue:	节点值
+				nodeType:	节点类型
+					1:	元素
+					2:	属性
+					3:	文本
+					8:	注释
+					9: 	文档
+		-->
+		<div id="box">hello world!</div>
+		
+		<script type="text/javascript">
+			var oBox = document.getElementsByTagName("div")[0];
+			
+			console.log(oBox.nodeName);	//DIV
+			console.log(oBox.nodeValue);	//null
+			console.log(oBox.nodeType);	//1	元素
+			
+			console.log(document.nodeName);	//#document
+			console.log(document.nodeValue);	//null
+			console.log(document.nodeType);		//9 文档
+			
+			console.log(document.body.firstChild.nodeName);	//#comment
+			console.log(document.body.firstChild.nodeValue);	//注释内容
+			console.log(document.body.firstChild.nodeType);		//8	注释
+			
+			console.log(oBox.firstChild.nodeName);	//#text
+			console.log(oBox.firstChild.nodeValue);	//hello world!
+			console.log(oBox.firstChild.nodeType);	//3	文本
+			
+			console.log(oBox.getAttributeNode('id').nodeName);	//id
+			console.log(oBox.getAttributeNode('id').nodeValue);	//box
+			console.log(oBox.getAttributeNode('id').nodeType);	//2	属性
+			
+		</script>
+	</body>
+</html>
